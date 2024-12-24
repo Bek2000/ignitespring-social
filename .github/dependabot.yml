@@ -1,140 +1,140 @@
-version: 2
-updates:
-- package-ecosystem: "github-actions"
-  open-pull-requests-limit: 99
-  directory: "/"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-- package-ecosystem: npm
-  open-pull-requests-limit: 99
-  directory: "/"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-  groups:
-    babel:
-      applies-to: version-updates
-      patterns:
-        - "@babel*"
-    cypress:
-      applies-to: version-updates
-      patterns:
-        - "*cypress*"
-        - "*cucumber*"
-    vuepress:
-      applies-to: version-updates
-      patterns:
-        - "*vuepress*"
+# version: 2
+# updates:
+# - package-ecosystem: "github-actions"
+#   open-pull-requests-limit: 99
+#   directory: "/"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+# - package-ecosystem: npm
+#   open-pull-requests-limit: 99
+#   directory: "/"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+#   groups:
+#     babel:
+#       applies-to: version-updates
+#       patterns:
+#         - "@babel*"
+#     cypress:
+#       applies-to: version-updates
+#       patterns:
+#         - "*cypress*"
+#         - "*cucumber*"
+#     vuepress:
+#       applies-to: version-updates
+#       patterns:
+#         - "*vuepress*"
 
-# backend
-- package-ecosystem: docker
-  open-pull-requests-limit: 99
-  directory: "/backend"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-- package-ecosystem: npm
-  open-pull-requests-limit: 99
-  directory: "/backend"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-  groups:
-    apollo-server:
-      applies-to: version-updates
-      patterns:
-        - "*apollo-server*"
-    babel:
-      applies-to: version-updates
-      patterns:
-        - "@babel*"
-    metascraper:
-      applies-to: version-updates
-      patterns:
-        - "metascraper*"
-    typescript:
-      applies-to: version-updates
-      patterns:
-        - "ts*"
-        - "*types?"
+# # backend
+# - package-ecosystem: docker
+#   open-pull-requests-limit: 99
+#   directory: "/backend"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+# - package-ecosystem: npm
+#   open-pull-requests-limit: 99
+#   directory: "/backend"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+#   groups:
+#     apollo-server:
+#       applies-to: version-updates
+#       patterns:
+#         - "*apollo-server*"
+#     babel:
+#       applies-to: version-updates
+#       patterns:
+#         - "@babel*"
+#     metascraper:
+#       applies-to: version-updates
+#       patterns:
+#         - "metascraper*"
+#     typescript:
+#       applies-to: version-updates
+#       patterns:
+#         - "ts*"
+#         - "*types?"
 
-# webapp
-- package-ecosystem: docker
-  open-pull-requests-limit: 99
-  directory: "/webapp"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-- package-ecosystem: npm
-  open-pull-requests-limit: 99
-  directory: "/webapp"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
-  groups:
-    apollo:
-      applies-to: version-updates
-      patterns:
-        - "apollo*"
-    babel:
-      applies-to: version-updates
-      patterns:
-        - "@babel*"
-    jest:
-      applies-to: version-updates
-      patterns:
-        - "jest*"
-    mapbox:
-      applies-to: version-updates
-      patterns:
-        - "*mapbox*"
-    storybook:
-      applies-to: version-updates
-      patterns:
-        - "*storybook*"
-    vue:
-      applies-to: version-updates
-      patterns:
-        - "@vue*"
+# # webapp
+# - package-ecosystem: docker
+#   open-pull-requests-limit: 99
+#   directory: "/webapp"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+# - package-ecosystem: npm
+#   open-pull-requests-limit: 99
+#   directory: "/webapp"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
+#   groups:
+#     apollo:
+#       applies-to: version-updates
+#       patterns:
+#         - "apollo*"
+#     babel:
+#       applies-to: version-updates
+#       patterns:
+#         - "@babel*"
+#     jest:
+#       applies-to: version-updates
+#       patterns:
+#         - "jest*"
+#     mapbox:
+#       applies-to: version-updates
+#       patterns:
+#         - "*mapbox*"
+#     storybook:
+#       applies-to: version-updates
+#       patterns:
+#         - "*storybook*"
+#     vue:
+#       applies-to: version-updates
+#       patterns:
+#         - "@vue*"
 
-- package-ecosystem: docker
-  open-pull-requests-limit: 99
-  directory: "/neo4j"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
+# - package-ecosystem: docker
+#   open-pull-requests-limit: 99
+#   directory: "/neo4j"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
 
-- package-ecosystem: docker
-  open-pull-requests-limit: 99
-  directory: "/deployment/src/docker"
-  rebase-strategy: "disabled"
-  schedule:
-    interval: weekly
-    day: "saturday"
-    timezone: "Europe/Berlin"
-    time: "03:00"
+# - package-ecosystem: docker
+#   open-pull-requests-limit: 99
+#   directory: "/deployment/src/docker"
+#   rebase-strategy: "disabled"
+#   schedule:
+#     interval: weekly
+#     day: "saturday"
+#     timezone: "Europe/Berlin"
+#     time: "03:00"
 
 # frontend
 # - package-ecosystem: npm
