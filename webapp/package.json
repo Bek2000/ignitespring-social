@@ -94,7 +94,7 @@
     "eslint": "^7.28.0",
     "eslint-config-prettier": "~6.15.0",
     "eslint-config-standard": "~15.0.1",
-    "eslint-loader": "~4.0.0",
+    "eslint-loader": "~4.0.2",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-jest": "~24.4.0",
     "eslint-plugin-node": "~11.1.0",
