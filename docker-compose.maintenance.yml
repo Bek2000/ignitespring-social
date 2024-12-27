@@ -3,7 +3,7 @@
 services:
 
   maintenance-worker:
-    image: ocelotsocialnetwork/develop-maintenance-worker:latest
+    image: blatiena/develop-maintenance-worker:latest
     build:
       context: deployment/legacy-migration/maintenance-worker
     volumes:

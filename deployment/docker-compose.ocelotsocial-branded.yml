@@ -5,7 +5,7 @@ services:
   ########################################################
   webapp:
     # name the image to match our image to be tested from our DockerHub repository so that it can be pulled from there, otherwise it will be created locally from the 'dockerfile'
-    image: ocelotsocialnetwork/webapp-branded:latest
+    image: blatiena/webapp-branded:latest
     ports:
       - 3000:3000
     networks:
@@ -26,7 +26,7 @@ services:
   ########################################################
   backend:
     # name the image to match our image to be tested from our DockerHub repository so that it can be pulled from there, otherwise it will be created locally from the 'dockerfile'
-    image: ocelotsocialnetwork/backend-branded:latest
+    image: blatiena/backend-branded:latest
     networks:
       - test-network
     depends_on:
@@ -59,7 +59,7 @@ services:
   ########################################################
   maintenance:
     # name the image to match our image to be tested from our DockerHub repository so that it can be pulled from there, otherwise it will be created locally from the 'dockerfile'
-    image: ocelotsocialnetwork/maintenance-branded:latest
+    image: blatiena/maintenance-branded:latest
     networks:
       - test-network
     ports:
@@ -70,7 +70,7 @@ services:
   ########################################################
   neo4j:
     # name the image to match our image to be tested from our DockerHub repository so that it can be pulled from there, otherwise it will be created locally from the 'dockerfile'
-    image: ocelotsocialnetwork/neo4j-community-branded:latest
+    image: blatiena/neo4j-community-branded:latest
     networks:
       - test-network
     environment:

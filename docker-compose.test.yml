@@ -1,3 +1,8 @@
+# This file defines the production settings. It is overwritten by docker-compose.override.yml,
+# which defines the development settings. The override.yml is loaded by default. Therefore it
+# is required to explicitly define if you want an production build:
+# > docker-compose -f docker-compose.yml up 
+
 services:
 
   ########################################################
@@ -5,62 +10,153 @@ services:
   ########################################################
   webapp:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/webapp:test
+    image: blatiena/webapp:local-production
+    container_name: webapp
     build:
-      target: test
+      context: ./webapp
+      target: production
+    networks:
+      - external-net
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+      # Storybook: Todo externalize, its not working anyways
+      # - 3002:3002
     environment:
-      - NODE_ENV="test"
-    volumes:
-      - ./coverage:/app/coverage 
+      # Envs used in Dockerfile
+      # - DOCKER_WORKDIR="/app"
+      # - PORT="3000"
+      - BUILD_DATE
+      - BUILD_VERSION
+      - BUILD_COMMIT
+      - NODE_ENV="production"
+      # Application only envs
+      - HOST=0.0.0.0 # This is nuxt specific, alternative value is HOST=webapp
+      - GRAPHQL_URI=http://backend:4000
+    env_file:
+      - ./webapp/.env
+
+  ########################################################
+  # FRONTEND #############################################
+  ########################################################
+  frontend:
+    # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
+    image: blatiena/frontend:local-production
+    container_name: frontend
+    build:
+      context: ./frontend
+      target: production
+    networks:
+      - external-net
+    depends_on:
+      - backend
+    ports:
+      - 3002:3002
+    environment:
+      # Envs used in Dockerfile
+      # - DOCKER_WORKDIR="/app"
+      # - PORT="3002"
+      - BUILD_DATE
+      - BUILD_VERSION
+      - BUILD_COMMIT
+      - NODE_ENV="production"
+      # Application only envs
+      #- HOST=0.0.0.0 # This is nuxt specific, alternative value is HOST=webapp
+      #- GRAPHQL_URI=http://backend:4000
+    env_file:
+      - ./frontend/.env
 
   ########################################################
   # BACKEND ##############################################
   ########################################################
   backend:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/backend:test
+    image: blatiena/backend:local-production
+    container_name: backend
     build:
-      target: test
-    environment:
-      - NODE_ENV="test"
+      context: ./backend
+      target: production
+    networks:
+      - external-net
+      - internal-net
+    depends_on:
+      - neo4j
+    ports:
+      - 4000:4000
     volumes:
-      - ./coverage:/app/coverage 
+      - backend_uploads:/app/public/uploads
+    environment:
+      # Envs used in Dockerfile
+      # - DOCKER_WORKDIR="/app"
+      # - PORT="4000"
+      - BUILD_DATE
+      - BUILD_VERSION
+      - BUILD_COMMIT
+      - NODE_ENV="production"
+      # Application only envs
+      - DEBUG=false
+      - NEO4J_URI=bolt://neo4j:7687
+      - GRAPHQL_URI=http://backend:4000
+      - CLIENT_URI=http://webapp:3000
+    env_file:
+      - ./backend/.env
 
   ########################################################
   # MAINTENANCE ##########################################
   ########################################################
   maintenance:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/maintenance:test
+    image: blatiena/maintenance:local-production
+    container_name: maintenance
+    build:
+      # TODO: Separate from webapp, this must be independent
+      context: ./webapp
+      dockerfile: Dockerfile.maintenance
+    networks:
+      - external-net
+    ports:
+      - 3001:80
 
   ########################################################
   # NEO4J ################################################
   ########################################################
   neo4j:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/neo4j-community:test
-    #environment:
-    #  - NEO4J_dbms_connector_bolt_enabled=true
-    #  - NEO4J_dbms_connector_bolt_tls__level=OPTIONAL
-    #  - NEO4J_dbms_connector_bolt_listen__address=0.0.0.0:7687
-    #  - NEO4J_auth=none
-    #  - NEO4J_dbms_connectors_default__listen__address=0.0.0.0
-    #  - NEO4J_dbms_connector_http_listen__address=0.0.0.0:7474
-    #  - NEO4J_dbms_connector_https_listen__address=0.0.0.0:7473
+    image: blatiena/neo4j-community:local-production
+    container_name: neo4j
+    build:
+      context: ./neo4j
+      # community edition 👆🏼, because we have no enterprise licence 👇🏼 at the moment
+      target: community
     networks:
-      # So we can access the neo4j query browser from our host machine
-      - external-net
-
-  ########################################################
-  # MAILSERVER TO FAKE SMTP ##############################
-  ########################################################
-  mailserver:
-    image: djfarrelly/maildev
+      - internal-net
     ports:
-      - 1080:80
-    networks:
-      - external-net
-      
+      - 7687:7687
+    volumes:
+      - neo4j_data:/data
+    environment:
+      # settings reference: https://neo4j.com/docs/operations-manual/4.4/docker/ref-settings/
+      # TODO: This sounds scary for a production environment
+      - NEO4J_AUTH=none
+      - NEO4J_dbms_security_procedures_unrestricted=algo.*,apoc.*
+      - NEO4J_dbms_allow__format__migration=true
+      - NEO4J_dbms_allow__upgrade=true
+      # uncomment following line for Neo4j Enterprise version instead of Community version
+      # TODO: clarify if that is the only thing needed to unlock the Enterprise version
+      # - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      # set the name of the database to be used
+      # - NEO4J_dbms_default__database=graph.db
+      # - NEO4J_dbms_default__database=neo4j
+      # TODO: Remove the playground from production
+    # bring the database in offline mode to export or load dumps
+    # command: ["tail", "-f", "/dev/null"]
+
+networks:
+  external-net:
+  internal-net:
+    internal: true
+
 volumes:
-  webapp_node_modules:
-  backend_node_modules:
+  backend_uploads:
+  neo4j_data:

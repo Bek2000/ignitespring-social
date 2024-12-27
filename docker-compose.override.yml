@@ -5,7 +5,7 @@ services:
   ########################################################
   webapp:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/webapp:local-development
+    image: blatiena/webapp:local-development
     build:
       target: development
     environment:
@@ -24,7 +24,7 @@ services:
   ########################################################
   frontend:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/frontend:local-development
+    image: blatiena/frontend:local-development
     build:
       target: development
     environment:
@@ -44,7 +44,7 @@ services:
   ########################################################
   backend:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/backend:local-development
+    image: blatiena/backend:local-development
     build:
       target: development
     environment:
@@ -62,14 +62,14 @@ services:
   ########################################################
   maintenance:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/maintenance:local-development
+    image: blatiena/maintenance:local-development
 
   ########################################################
   # NEO4J ################################################
   ########################################################
   neo4j:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/neo4j-community:local-development
+    image: blatiena/neo4j-community:local-development
     ports:
       # Also expose the neo4j query browser
       - 7474:7474

@@ -1,7 +1,7 @@
 services:
 
   webapp-base:
-    image: ocelotsocialnetwork/webapp:local-base
+    image: blatiena/webapp:local-base
     build: 
       dockerfile: ../webapp/Dockerfile
       context: ../webapp
@@ -9,7 +9,7 @@ services:
     command: sleep 0
 
   webapp-code:
-    image: ocelotsocialnetwork/webapp:local-code
+    image: blatiena/webapp:local-code
     build: 
       dockerfile: ../webapp/Dockerfile
       context: ../webapp
@@ -17,7 +17,7 @@ services:
     command: sleep 0
 
   webapp:
-    image: ocelotsocialnetwork/webapp-branded:local-${CONFIGURATION}
+    image: blatiena/webapp-branded:local-${CONFIGURATION}
     container_name: webapp-branded
     build:
       dockerfile: src/docker/webapp.Dockerfile
@@ -47,7 +47,7 @@ services:
       - CATEGORIES_ACTIVE=true
 
   backend-base:
-    image: ocelotsocialnetwork/backend:local-base
+    image: blatiena/backend:local-base
     build: 
       dockerfile: ../backend/Dockerfile
       context: ../backend
@@ -55,7 +55,7 @@ services:
     command: sleep 0
   
   backend-code:
-    image: ocelotsocialnetwork/backend:local-code
+    image: blatiena/backend:local-code
     build: 
       dockerfile: ../backend/Dockerfile
       context: ../backend
@@ -63,7 +63,7 @@ services:
     command: sleep 0
   
   backend:
-    image: ocelotsocialnetwork/backend-branded:local-${CONFIGURATION}
+    image: blatiena/backend-branded:local-${CONFIGURATION}
     container_name: backend-branded
     build:
       dockerfile: src/docker/backend.Dockerfile
@@ -104,7 +104,7 @@ services:
       - NODE_ENV=development
 
   maintenance-base:
-    image: ocelotsocialnetwork/maintenance:local-base
+    image: blatiena/maintenance:local-base
     build: 
       dockerfile: ../webapp/Dockerfile.maintenance
       context: ../webapp
@@ -112,7 +112,7 @@ services:
     command: sleep 0
 
   maintenance-code:
-    image: ocelotsocialnetwork/maintenance:local-code
+    image: blatiena/maintenance:local-code
     build: 
       dockerfile: ../webapp/Dockerfile.maintenance
       context: ../webapp
@@ -121,7 +121,7 @@ services:
 
   maintenance:
     # name the image so that it cannot be found in a DockerHub repository, otherwise it will not be built locally from the 'dockerfile' but pulled from there
-    image: ocelotsocialnetwork/maintenance-branded:local-${CONFIGURATION}
+    image: blatiena/maintenance-branded:local-${CONFIGURATION}
     container_name: maintenance-branded
     build:
       # TODO: Separate from webapp, this must be independent
@@ -144,7 +144,7 @@ services:
     # Neo4j v3.5.14-community
     # image: wollehuss/neo4j-community-branded:latest
     # Neo4j 4.4-community
-    image: ocelotsocialnetwork/neo4j-community:latest
+    image: blatiena/neo4j-community:latest
     container_name: neo4j-branded
     networks:
       - test-network
