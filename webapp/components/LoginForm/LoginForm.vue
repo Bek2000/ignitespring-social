@@ -1,9 +1,6 @@
 <template>
   <section class="login-form">
-    <blockquote>
-      <p>{{ $t('quotes.african.quote') }}</p>
-      <b>- {{ $t('quotes.african.author') }}</b>
-    </blockquote>
+ 
     <base-card>
       <template #imageColumn>
         <page-params-link :pageParams="links.ORGANIZATION" :title="$t('login.moreInfo', metadata)">
@@ -45,7 +42,7 @@
         </p>
       </form>
       <template #topMenu>
-        <locale-switch offset="5" />
+        <!-- <locale-switch offset="5" /> -->
       </template>
     </base-card>
   </section>

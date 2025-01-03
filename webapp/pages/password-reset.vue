@@ -8,7 +8,7 @@
       </template>
       <nuxt-child />
       <template #topMenu>
-        <locale-switch offset="5" />
+        <!-- <locale-switch offset="5" /> -->
       </template>
     </base-card>
   </ds-container>

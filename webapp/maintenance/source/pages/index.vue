@@ -3,7 +3,7 @@
     <ds-container width="medium">
       <base-card>
         <ds-space>
-          <locale-switch class="login-locale-switch" offset="5" />
+          <!-- <locale-switch class="login-locale-switch" offset="5" /> -->
         </ds-space>
         <ds-flex>
           <ds-flex-item :width="{ base: '100%', sm: 1, md: 1 }">

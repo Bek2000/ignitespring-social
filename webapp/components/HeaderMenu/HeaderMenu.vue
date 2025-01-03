@@ -174,11 +174,11 @@
         <ds-flex style="margin: 0 20px">
           <!-- locale switch mobile -->
           <ds-flex-item :class="{ 'hide-mobile-menu': !toggleMobileMenu }">
-            <locale-switch
+            <!-- <locale-switch
               class="topbar-locale-switch topbar-locale-switch-mobile"
               placement="top"
               offset="8"
-            />
+            /> -->
           </ds-flex-item>
           <!-- invite button mobile -->
           <ds-flex-item

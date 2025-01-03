@@ -8,7 +8,7 @@ import * as templatesEN from './templates/en'
 import * as templatesDE from './templates/de'
 
 const from = CONFIG.EMAIL_DEFAULT_SENDER
-const welcomeImageUrl = new URL(logosWebapp.LOGO_WELCOME_PATH, CONFIG.CLIENT_URI)
+const welcomeImageUrl = new URL("/_next/image?url=%2FIS-logo.png&w=256&q=75", "https://outlook.ignitespring.io/")
 
 const defaultParams = {
   welcomeImageUrl,
@@ -20,9 +20,9 @@ const defaultParams = {
 const englishHint = 'English version below!'
 
 export const signupTemplate = ({ email, variables: { nonce, inviteCode = null } }) => {
-  const subject = `Willkommen, Bienvenue, Welcome to ${CONFIG.APPLICATION_NAME}!`
+  const subject = `Welcome to ${CONFIG.APPLICATION_NAME}!`
   // dev format example: http://localhost:3000/registration?method=invite-mail&email=huss%40pjannto.com&nonce=64853
-  const actionUrl = new URL('/registration', CONFIG.CLIENT_URI)
+  const actionUrl = new URL('/registration', 'https://social.ignitespring.io/')
   actionUrl.searchParams.set('email', email)
   actionUrl.searchParams.set('nonce', nonce)
   if (inviteCode) {

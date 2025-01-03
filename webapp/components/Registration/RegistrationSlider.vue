@@ -36,7 +36,7 @@
       </component-slider>
 
       <template #topMenu>
-        <locale-switch offset="5" />
+        <!-- <locale-switch offset="5" /> -->
       </template>
     </base-card>
   </section>

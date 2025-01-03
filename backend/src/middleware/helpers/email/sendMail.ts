@@ -9,6 +9,7 @@ const hasDKIMData =
   CONFIG.SMTP_DKIM_DOMAINNAME && CONFIG.SMTP_DKIM_KEYSELECTOR && CONFIG.SMTP_DKIM_PRIVATKEY
 
 let sendMailCallback: any = async () => {}
+
 if (!hasEmailConfig) {
   if (!CONFIG.TEST) {
     // eslint-disable-next-line no-console
@@ -38,10 +39,11 @@ if (!hasEmailConfig) {
 } else {
   sendMailCallback = async (templateArgs) => {
     const transporter = nodemailer.createTransport({
-      host: CONFIG.SMTP_HOST,
-      port: CONFIG.SMTP_PORT,
-      ignoreTLS: CONFIG.SMTP_IGNORE_TLS,
-      secure: CONFIG.SMTP_SECURE, // true for 465, false for other ports
+     service: 'gmail',
+      // host: CONFIG.SMTP_HOST,
+     // port: CONFIG.SMTP_PORT,
+     // ignoreTLS: CONFIG.SMTP_IGNORE_TLS,
+     // secure: CONFIG.SMTP_SECURE, // true for 465, false for other ports
       auth: hasAuthData && {
         user: CONFIG.SMTP_USERNAME,
         pass: CONFIG.SMTP_PASSWORD,
@@ -53,6 +55,14 @@ if (!hasEmailConfig) {
       },
     })
 
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
+    })
+    
     transporter.use(
       'compile',
       htmlToText({

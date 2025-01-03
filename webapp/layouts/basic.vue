@@ -11,7 +11,7 @@
           </ds-flex-item>
           <ds-flex-item width="20%" style="flex-grow: 0">
             <div class="main-navigation-right" style="flex-basis: auto">
-              <locale-switch class="topbar-locale-switch" placement="top" offset="8" />
+              <!-- <locale-switch class="topbar-locale-switch" placement="top" offset="8" /> -->
               <template v-if="!isLoggedIn">
                 <client-only>
                   <login-button placement="top" />
