@@ -245,7 +245,7 @@
           </ul>
           <hr />
           <!-- dynamic footer menu in header  -->
-          <ul class="dynamic-footer-mobil">
+          <!-- <ul class="dynamic-footer-mobil">
             <li
               v-for="pageParams in links.FOOTER_LINK_LIST"
               :key="pageParams.name"
@@ -255,7 +255,7 @@
                 {{ $t(pageParams.internalPage.footerIdent) }}
               </page-params-link>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
